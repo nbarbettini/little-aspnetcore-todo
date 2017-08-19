@@ -24,5 +24,10 @@ namespace AspNetCoreTodo.Services
 
             return Task.FromResult(items);
         }
+
+        public Task<bool> MarkDone(Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
