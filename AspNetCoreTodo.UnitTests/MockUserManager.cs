@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 
-namespace AspNetCoreTodo.UnitTest
+namespace AspNetCoreTodo.UnitTests
 {
     public static class MockUserManager
     {

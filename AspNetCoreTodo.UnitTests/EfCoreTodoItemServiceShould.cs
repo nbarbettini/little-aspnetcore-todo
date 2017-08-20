@@ -5,7 +5,7 @@ using AspNetCoreTodo.Services;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace AspNetCoreTodo.UnitTest
+namespace AspNetCoreTodo.UnitTests
 {
     public class EfCoreTodoItemServiceShould
     {

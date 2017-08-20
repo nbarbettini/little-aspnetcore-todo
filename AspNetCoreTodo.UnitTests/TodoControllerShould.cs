@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
 using Xunit;
 
-namespace AspNetCoreTodo.UnitTest
+namespace AspNetCoreTodo.UnitTests
 {
     public class TodoControllerShould
     {
