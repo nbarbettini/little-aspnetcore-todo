@@ -6,6 +6,11 @@ namespace AspNetCoreTodo.Services
 {
     public class FakeTodoItemService : ITodoItemService
     {
+        public Task<bool> AddItem(NewTodoItem newItem)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<TodoItem[]> GetIncompleteItemsAsync()
         {
             var items = new[]

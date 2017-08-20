@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace AspNetCoreTodo.Models
 {
@@ -9,7 +8,6 @@ namespace AspNetCoreTodo.Models
         
         public bool IsDone { get; set; }
 
-        [Required]
         public string Title { get; set; }
 
         public DateTimeOffset? DueAt { get; set; }
