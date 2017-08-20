@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using AspNetCoreTodo.Data;
 using AspNetCoreTodo.Models;
@@ -28,9 +29,10 @@ namespace AspNetCoreTodo.UnitTests
             {
                 Assert.Equal(1, await context.Items.CountAsync());
                 
-                var item = await context.Items.SingleAsync();
+                var item = await context.Items.FirstAsync();
                 Assert.Equal("Testing?", item.Title);
                 Assert.Equal(false, item.IsDone);
+                Assert.True(DateTimeOffset.Now.AddDays(3) - item.DueAt < TimeSpan.FromSeconds(1));
             }
         }
     }
