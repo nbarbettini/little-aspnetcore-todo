@@ -1,0 +1,19 @@
+@using Microsoft.AspNetCore.Identity
+@using AspNetCoreTodo.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    var currentUser = await UserManager.GetUserAsync(User);
+
+    var isAdmin = currentUser != null
+        && await UserManager.IsInRoleAsync(currentUser, Constants.AdministratorRole);
+
+    if (isAdmin) {
+        <ul class="nav navbar-nav navbar-right">
+            <li><a asp-controller="ManageUsers" asp-action="Index">Manage users</a></li>
+        </ul>
+    }
+}
