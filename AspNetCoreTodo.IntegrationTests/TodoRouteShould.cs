@@ -27,7 +27,8 @@ namespace AspNetCoreTodo.IntegrationTests
 
             // Assert
             Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
-            Assert.Equal("http://localhost:5000/Account/Login?ReturnUrl=%2Ftodo", response.Headers.Location.ToString());
+            Assert.Equal("http://localhost:5000/Account/Login?ReturnUrl=%2Ftodo",
+                        response.Headers.Location.ToString());
         }
     }
 }
