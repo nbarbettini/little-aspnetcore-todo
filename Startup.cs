@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using AspNetCoreTodo.Data;
 using AspNetCoreTodo.Models;
 using AspNetCoreTodo.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreTodo
 {
@@ -27,9 +26,10 @@ namespace AspNetCoreTodo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("in-memory-db"));
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(opt => opt.UseInMemoryDatabase("in-memory-db"));
+
+            //services.AddDbContext<ApplicationDbContext>(options =>
+                //options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -47,7 +47,7 @@ namespace AspNetCoreTodo
         public void Configure(
             IApplicationBuilder app,
             IHostingEnvironment env,
-            TodoContext context)
+            ApplicationDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -72,7 +72,7 @@ namespace AspNetCoreTodo
             });
         }
 
-        private static void AddTestData(TodoContext context)
+        private static void AddTestData(ApplicationDbContext context)
         {
             context.Items.AddRange(
                 new TodoItem
