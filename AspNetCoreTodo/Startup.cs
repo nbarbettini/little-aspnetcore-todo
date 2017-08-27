@@ -26,10 +26,8 @@ namespace AspNetCoreTodo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(opt => opt.UseInMemoryDatabase("in-memory-db"));
-
-            //services.AddDbContext<ApplicationDbContext>(options =>
-                //options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -38,7 +36,7 @@ namespace AspNetCoreTodo
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddScoped<ITodoItemService, EfCoreTodoItemService>();
+            services.AddScoped<ITodoItemService, TodoItemService>();
 
             services
                 .AddAuthentication()
@@ -61,7 +59,7 @@ namespace AspNetCoreTodo
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                AddTestData(context); // Seed the in-memory database
+                //AddTestData(context); // Seed the in-memory database
             }
             else
             {

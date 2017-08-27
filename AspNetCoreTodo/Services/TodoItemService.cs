@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AspNetCoreTodo.Data;
@@ -7,21 +8,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreTodo.Services
 {
-    public class EfCoreTodoItemService : ITodoItemService
+    public class TodoItemService : ITodoItemService
     {
         private readonly ApplicationDbContext _context;
 
-        public EfCoreTodoItemService(ApplicationDbContext context)
+        public TodoItemService(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<bool> AddItem(NewTodoItem newItem, ApplicationUser user)
+        public async Task<bool> AddItemAsync(NewTodoItem newItem, ApplicationUser user)
         {
             var entity = new TodoItem
             {
                 Id = Guid.NewGuid(),
-                Owner = user,
+                //Owner = user,
                 IsDone = false,
                 Title = newItem.Title,
                 DueAt = DateTimeOffset.Now.AddDays(3)
@@ -33,17 +34,17 @@ namespace AspNetCoreTodo.Services
             return saveResult == 1;
         }
 
-        public Task<TodoItem[]> GetIncompleteItemsAsync(ApplicationUser user)
+        public async Task<IEnumerable<TodoItem>> GetIncompleteItemsAsync(ApplicationUser user)
         {
-            return _context.Items
-                .Where(x => x.IsDone == false && x.Owner.Id == user.Id)
+            return await _context.Items
+                .Where(x => x.IsDone == false /*&& x.Owner.Id == user.Id*/)
                 .ToArrayAsync();
         }
 
-        public async Task<bool> MarkDone(Guid id, ApplicationUser user)
+        public async Task<bool> MarkDoneAsync(Guid id, ApplicationUser user)
         {
             var item = await _context.Items
-                .Where(x => x.Id == id && x.Owner.Id == user.Id)
+                .Where(x => x.Id == id /*&& x.Owner.Id == user.Id*/)
                 .SingleOrDefaultAsync();
 
             if (item == null) return false;

@@ -19,14 +19,16 @@
     @foreach (var item in Model.Items)
     {
         <tr>
-            <td class="done-cell"><input type="checkbox" name="@item.Id" value="true" class="done-checkbox"></td>
+            <td class="done-cell">
+              <input type="checkbox" name="@item.Id" value="true" class="done-checkbox">
+            </td>
             <td>@item.Title</td>
             <td>@item.DueAt.Humanize()</td>
         </tr>
     }
 </table>
 
-<div class="add-item">
+<div class="add-item-form">
     <form>
         <div id="add-item-error" class="text-danger"></div>
         <label for="add-item-title">Add a new item:</label>

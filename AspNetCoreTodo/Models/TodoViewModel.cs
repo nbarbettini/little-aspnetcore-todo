@@ -1,7 +1,9 @@
+using System.Collections.Generic;
+
 namespace AspNetCoreTodo.Models
 {
     public class TodoViewModel
     {
-        public TodoItem[] Items { get; set; }
+        public IEnumerable<TodoItem> Items { get; set; }
     }
 }
