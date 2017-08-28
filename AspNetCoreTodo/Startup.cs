@@ -50,16 +50,18 @@ namespace AspNetCoreTodo
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(
-            IApplicationBuilder app,
+        public void Configure(IApplicationBuilder app,
             IHostingEnvironment env,
-            ApplicationDbContext context)
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                //AddTestData(context); // Seed the in-memory database
+
+                EnsureRolesAsync(roleManager).Wait();
+                EnsureTestAdminAsync(userManager).Wait();
             }
             else
             {
@@ -78,30 +80,26 @@ namespace AspNetCoreTodo
             });
         }
 
-        private static void AddTestData(ApplicationDbContext context)
+        private static async Task EnsureRolesAsync(RoleManager<IdentityRole> roleManager)
         {
-            context.Items.AddRange(
-                new TodoItem
-                {
-                    Id = Guid.Parse("f9aad911-d053-4d55-ac26-de06255e9b06"),
-                    Title = "Learn ASP.NET Core",
-                    DueAt = DateTimeOffset.Now.AddDays(1)
-                },
-                new TodoItem
-                {
-                    Id = Guid.Parse("cefd42cb-a513-4fba-83ce-6cda5f3535a4"),
-                    Title = "Build awesome apps",
-                    DueAt = DateTimeOffset.Now.AddDays(2)
-                },
-                new TodoItem
-                {
-                    Id = Guid.Parse("48c95ebd-ca08-4583-831f-64e50723a04a"),
-                    Title = "Profit",
-                    DueAt = DateTimeOffset.Now.AddDays(3)
-                }
-            );
+            var alreadyExists = await roleManager.RoleExistsAsync(Constants.AdministratorRole);
+            
+            if (alreadyExists) return;
 
-            context.SaveChanges();
+            await roleManager.CreateAsync(new IdentityRole(Constants.AdministratorRole));
+        }
+
+        private static async Task EnsureTestAdminAsync(UserManager<ApplicationUser> userManager)
+        {
+            var testAdmin = await userManager.Users
+                .Where(x => x.UserName == "admin@todo.local")
+                .SingleOrDefaultAsync();
+
+            if (testAdmin != null) return;
+
+            testAdmin = new ApplicationUser { UserName = "admin@todo.local", Email = "admin@todo.local" };
+            await userManager.CreateAsync(testAdmin, "NotSecure123!!");
+            await userManager.AddToRoleAsync(testAdmin, Constants.AdministratorRole);
         }
     }
 }

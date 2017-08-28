@@ -67,7 +67,7 @@ namespace AspNetCoreTodo.UnitTests
                 .Returns(Task.FromResult(fakeUser));
 
             // Make the mockTodoItemService always succeed
-            mockTodoItemService.MarkDone(Arg.Any<Guid>(), Arg.Any<ApplicationUser>())
+            mockTodoItemService.MarkDoneAsync(Arg.Any<Guid>(), Arg.Any<ApplicationUser>())
                 .Returns(Task.FromResult(true));
 
             var controller = new TodoController(mockTodoItemService, mockUserManager);

@@ -16,9 +16,16 @@ namespace AspNetCoreTodo.IntegrationTests
         {
             var builder = new WebHostBuilder()
                 .UseStartup<AspNetCoreTodo.Startup>()
-                .ConfigureAppConfiguration((context, configBuilder) => {
-                    // Add configuration for Facebook middleware (to avoid startup errors)
-                    configBuilder.AddInMemoryCollection(new Dictionary<string, string>() {
+                .ConfigureAppConfiguration((context, configBuilder) =>
+                {
+                    configBuilder.SetBasePath(Path.Combine(
+                        Directory.GetCurrentDirectory(), "..\\..\\..\\..\\AspNetCoreTodo"));
+
+                    configBuilder.AddJsonFile("appsettings.json");
+
+                    // Add fake configuration for Facebook middleware (to avoid startup errors)
+                    configBuilder.AddInMemoryCollection(new Dictionary<string, string>()
+                    {
                         ["Facebook:AppId"] = "fake-app-id",
                         ["Facebook:AppSecret"] = "fake-app-secret"
                     });

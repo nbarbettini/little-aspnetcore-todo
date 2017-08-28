@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
 namespace AspNetCoreTodo.Data.Migrations
@@ -75,6 +77,8 @@ namespace AspNetCoreTodo.Data.Migrations
                     b.Property<DateTimeOffset?>("DueAt");
 
                     b.Property<bool>("IsDone");
+
+                    b.Property<string>("OwnerId");
 
                     b.Property<string>("Title");
 

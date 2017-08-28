@@ -39,19 +39,6 @@ namespace AspNetCoreTodo.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> MarkDone(Guid id)
-        {
-            if (id == Guid.Empty) return BadRequest();
-
-            var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser == null) return Unauthorized();
-
-            var successful = await _todoItemService.MarkDoneAsync(id, currentUser);
-            if (!successful) return BadRequest();
-
-            return Ok();
-        }
-
         public async Task<IActionResult> AddItem(NewTodoItem newItem)
         {
             if (!ModelState.IsValid)
@@ -67,6 +54,19 @@ namespace AspNetCoreTodo.Controllers
             {
                 return BadRequest(new { error = "Could not add item." });
             }
+
+            return Ok();
+        }
+
+        public async Task<IActionResult> MarkDone(Guid id)
+        {
+            if (id == Guid.Empty) return BadRequest();
+
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Unauthorized();
+
+            var successful = await _todoItemService.MarkDoneAsync(id, currentUser);
+            if (!successful) return BadRequest();
 
             return Ok();
         }

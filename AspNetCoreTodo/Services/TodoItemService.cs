@@ -22,7 +22,7 @@ namespace AspNetCoreTodo.Services
             var entity = new TodoItem
             {
                 Id = Guid.NewGuid(),
-                //Owner = user,
+                OwnerId = user.Id,
                 IsDone = false,
                 Title = newItem.Title,
                 DueAt = DateTimeOffset.Now.AddDays(3)
@@ -37,14 +37,14 @@ namespace AspNetCoreTodo.Services
         public async Task<IEnumerable<TodoItem>> GetIncompleteItemsAsync(ApplicationUser user)
         {
             return await _context.Items
-                .Where(x => x.IsDone == false /*&& x.Owner.Id == user.Id*/)
+                .Where(x => x.IsDone == false && x.OwnerId == user.Id)
                 .ToArrayAsync();
         }
 
         public async Task<bool> MarkDoneAsync(Guid id, ApplicationUser user)
         {
             var item = await _context.Items
-                .Where(x => x.Id == id /*&& x.Owner.Id == user.Id*/)
+                .Where(x => x.Id == id && x.OwnerId == user.Id)
                 .SingleOrDefaultAsync();
 
             if (item == null) return false;
