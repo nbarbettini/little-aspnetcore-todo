@@ -5,34 +5,36 @@
     ViewData["Title"] = "Manage your todo list";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="panel panel-default todo-panel">
+  <div class="panel-heading">@ViewData["Title"]</div>
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <td>Done?</td>
-            <td>Item</td>
-            <td>Due</td>
-        </tr>
-    </thead>
-    
-    @foreach (var item in Model.Items)
-    {
-        <tr>
-            <td class="done-cell">
-              <input type="checkbox" name="@item.Id" value="true" class="done-checkbox">
-            </td>
-            <td>@item.Title</td>
-            <td>@item.DueAt.Humanize()</td>
-        </tr>
-    }
-</table>
+  <table class="table table-hover">
+      <thead>
+          <tr>
+              <td>&#x2714;</td>
+              <td>Item</td>
+              <td>Due</td>
+          </tr>
+      </thead>
+      
+      @foreach (var item in Model.Items)
+      {
+          <tr>
+              <td>
+                <input type="checkbox" name="@item.Id" value="true" class="done-checkbox">
+              </td>
+              <td>@item.Title</td>
+              <td>@item.DueAt.Humanize()</td>
+          </tr>
+      }
+  </table>
 
-<div class="add-item-form">
+  <div class="panel-footer add-item-form">
     <form>
         <div id="add-item-error" class="text-danger"></div>
         <label for="add-item-title">Add a new item:</label>
         <input id="add-item-title">
         <button type="button" id="add-item-button">Add</button>
     </form>
+  </div>
 </div>
