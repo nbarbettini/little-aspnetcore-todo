@@ -23,7 +23,7 @@ namespace AspNetCoreTodo.UnitTests
 
                 var fakeUser = new ApplicationUser { Id = "fake-000", UserName = "fake@fake" };
 
-                await service.AddItemAsync(new NewTodoItem { Title = "Testing?" }, fakeUser);
+                await service.AddItemAsync(new TodoItem { Title = "Testing?" }, fakeUser);
             }
 
             // Use a separate context to read the data back from the DB

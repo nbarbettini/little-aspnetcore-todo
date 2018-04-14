@@ -39,7 +39,7 @@ namespace AspNetCoreTodo.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> AddItem(NewTodoItem newItem)
+        public async Task<IActionResult> AddItem(TodoItem newItem)
         {
             if (!ModelState.IsValid)
             {
