@@ -22,13 +22,6 @@ namespace AspNetCoreTodo.IntegrationTests
                         Directory.GetCurrentDirectory(), "..\\..\\..\\..\\AspNetCoreTodo"));
 
                     configBuilder.AddJsonFile("appsettings.json");
-
-                    // Add fake configuration for Facebook middleware (to avoid startup errors)
-                    configBuilder.AddInMemoryCollection(new Dictionary<string, string>()
-                    {
-                        ["Facebook:AppId"] = "fake-app-id",
-                        ["Facebook:AppSecret"] = "fake-app-secret"
-                    });
                 });
             _server = new TestServer(builder);
 
