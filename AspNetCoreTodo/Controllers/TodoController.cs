@@ -27,7 +27,10 @@ namespace AspNetCoreTodo.Controllers
         public async Task<IActionResult> Index()
         {
             var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser == null) return Challenge();
+            if (currentUser == null)
+            {
+                return Challenge();
+            }
 
             var todoItems = await _todoItemService.GetIncompleteItemsAsync(currentUser);
 
@@ -39,36 +42,50 @@ namespace AspNetCoreTodo.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> AddItem(NewTodoItem newItem)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddItem(TodoItem newItem)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return RedirectToAction("Index");
             }
 
             var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser == null) return Unauthorized();
+            if (currentUser == null)
+            {
+                return RedirectToAction("Index");
+            }
 
             var successful = await _todoItemService.AddItemAsync(newItem, currentUser);
             if (!successful)
             {
-                return BadRequest(new { error = "Could not add item." });
+                return BadRequest("Could not add item.");
             }
 
-            return Ok();
+            return RedirectToAction("Index");
         }
 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> MarkDone(Guid id)
         {
-            if (id == Guid.Empty) return BadRequest();
+            if (id == Guid.Empty)
+            {
+                return RedirectToAction("Index");
+            }
 
             var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser == null) return Unauthorized();
+            if (currentUser == null)
+            {
+                return RedirectToAction("Index");
+            }
 
             var successful = await _todoItemService.MarkDoneAsync(id, currentUser);
-            if (!successful) return BadRequest();
+            if (!successful)
+            {
+                return BadRequest("Could not mark item as done.");
+            }
 
-            return Ok();
+            return RedirectToAction("Index");
         }
     }
 }

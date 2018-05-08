@@ -21,20 +21,19 @@
       {
           <tr>
               <td>
-                <input type="checkbox" name="@item.Id" value="true" class="done-checkbox">
+                <form asp-action="MarkDone" method="POST">
+                    <input type="checkbox" class="done-checkbox">
+                    <input type="hidden" name="id" value="@item.Id">
+                </form>
               </td>
               <td>@item.Title</td>
               <td>@item.DueAt.Humanize()</td>
           </tr>
       }
   </table>
-
+  
   <div class="panel-footer add-item-form">
-    <form>
-        <div id="add-item-error" class="text-danger"></div>
-        <label for="add-item-title">Add a new item:</label>
-        <input id="add-item-title">
-        <button type="button" id="add-item-button">Add</button>
-    </form>
+      @await Html.PartialAsync("AddItemPartial", new TodoItem())
   </div>
+
 </div>

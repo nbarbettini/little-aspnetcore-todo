@@ -17,18 +17,14 @@ namespace AspNetCoreTodo.Services
             _context = context;
         }
 
-        public async Task<bool> AddItemAsync(NewTodoItem newItem, ApplicationUser user)
+        public async Task<bool> AddItemAsync(TodoItem newItem, ApplicationUser user)
         {
-            var entity = new TodoItem
-            {
-                Id = Guid.NewGuid(),
-                OwnerId = user.Id,
-                IsDone = false,
-                Title = newItem.Title,
-                DueAt = DateTimeOffset.Now.AddDays(3)
-            };
+            newItem.Id = Guid.NewGuid();
+            newItem.OwnerId = user.Id;
+            newItem.IsDone = false;
+            newItem.DueAt = DateTimeOffset.Now.AddDays(3);
 
-            _context.Items.Add(entity);
+            _context.Items.Add(newItem);
 
             var saveResult = await _context.SaveChangesAsync();
             return saveResult == 1;

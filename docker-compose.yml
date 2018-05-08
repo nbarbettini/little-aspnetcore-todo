@@ -1,0 +1,10 @@
+nginx:
+    build: ./nginx
+    links:
+        - kestrel:kestrel
+    ports:
+        - "80:80"
+kestrel:
+    build: .
+    ports:
+        - "80"
