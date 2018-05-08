@@ -21,8 +21,9 @@ namespace AspNetCoreTodo.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var admins = await _userManager
-                .GetUsersInRoleAsync(Constants.AdministratorRole);
+            var admins = (await _userManager
+                .GetUsersInRoleAsync("Administrator"))
+                .ToArray();
 
             var everyone = await _userManager.Users
                 .ToArrayAsync();
