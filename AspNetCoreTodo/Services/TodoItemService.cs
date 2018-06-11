@@ -30,7 +30,7 @@ namespace AspNetCoreTodo.Services
             return saveResult == 1;
         }
 
-        public async Task<IEnumerable<TodoItem>> GetIncompleteItemsAsync(ApplicationUser user)
+        public async Task<TodoItem[]> GetIncompleteItemsAsync(ApplicationUser user)
         {
             return await _context.Items
                 .Where(x => x.IsDone == false && x.OwnerId == user.Id)
