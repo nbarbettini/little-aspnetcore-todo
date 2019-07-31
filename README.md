@@ -12,6 +12,8 @@ cd little-aspnetcore-todo/AspNetCoreTodo
 dotnet run
 ```
 
+Now navigate your browser to the address displayed. Something like : ``Now listening on: http://localhost:5000``
+
 ## Questions? Comments?
 
 If you run into trouble, feel free to [file an issue](https://github.com/nbarbettini/little-aspnetcore-todo/issues) here on Github.
