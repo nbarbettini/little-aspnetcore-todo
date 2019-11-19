@@ -8,9 +8,11 @@ Make sure you have the [.NET Core SDK](https://www.microsoft.com/net/download/ma
 
 ```
 git clone https://github.com/nbarbettini/little-aspnetcore-todo.git
-cd little-aspnetcore-todo
+cd little-aspnetcore-todo/AspNetCoreTodo
 dotnet run
 ```
+
+Now navigate your browser to the address displayed. Something like : ``Now listening on: http://localhost:5000``
 
 ## Questions? Comments?
 
