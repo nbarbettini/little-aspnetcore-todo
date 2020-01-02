@@ -15,17 +15,16 @@ namespace AspNetCoreTodo
     {
         public static void Main(string[] args)
         {
-            var host = BuildWebHost(args);
+            var host = CreateWebHostBuilder(args).Build();
             InitializeDatabase(host);
             host.Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .Build();
 
-        private static void InitializeDatabase(IWebHost host)
+        private static void InitializeDatabase(IWebHostBuilder host)
         {
             using (var scope = host.Services.CreateScope())
             {
