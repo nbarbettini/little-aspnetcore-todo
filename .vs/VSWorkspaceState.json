@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\AspNetCoreTodo"
+    "\\AspNetCoreTodo",
+    "\\AspNetCoreTodo.IntegrationTests"
   ],
-  "SelectedNode": "\\AspNetCoreTodo\\SeedData.cs",
+  "SelectedNode": "\\AspNetCoreTodo.IntegrationTests\\AspNetCoreTodo.IntegrationTests.csproj",
   "PreviewInSolutionExplorer": false
 }
